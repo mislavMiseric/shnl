@@ -1,0 +1,91 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, path, jsonLd } = Astro.props;
+const canonical = new URL(path, "https://shnl.hr").href;
+---
+
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://shnl.hr/og.png" />
+    <meta property="og:locale" content="hr_HR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <header>
+      <a href="/" class="brand">SHNL</a>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p>SHNL: informacije o pomoći kod ovisnosti o kockanju u gradovima SuperSport HNL-a.</p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --ink: #16233a;
+    --muted: #55637d;
+    --accent: #0b5cad;
+    --bg: #f6f8fb;
+    --card: #ffffff;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  header,
+  main,
+  footer {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  header {
+    padding-top: 1.25rem;
+  }
+  .brand {
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  h1 {
+    line-height: 1.25;
+  }
+  a {
+    color: var(--accent);
+  }
+  footer {
+    margin-top: 3rem;
+    padding-bottom: 2rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+</style>
