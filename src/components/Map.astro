@@ -1,0 +1,162 @@
+---
+import { cities, VIEWBOX } from "../data/cities";
+
+const OUTLINE =
+  "M 24 136 L 32 202 L 56 216 L 88 157 L 112 157 L 136 192 L 162 290 " +
+  "L 216 333 L 259 358 L 338 409 L 391 454 L 426 479 L 419 464 L 372 426 " +
+  "L 352 403 L 324 370 L 296 347 L 240 280 L 204 218 L 208 174 L 256 179 " +
+  "L 296 160 L 344 176 L 392 179 L 440 185 L 464 206 L 494 166 L 464 151 " +
+  "L 472 131 L 452 95 L 432 90 L 376 102 L 328 84 L 296 50 L 272 17 " +
+  "L 248 22 L 208 56 L 196 95 L 172 118 L 168 140 L 128 123 L 108 118 L 64 132 Z";
+---
+
+<div id="map-wrap">
+  <svg
+    viewBox={`0 0 ${VIEWBOX.width} ${VIEWBOX.height}`}
+    role="img"
+    aria-label="Karta Hrvatske s gradovima SuperSport HNL-a"
+  >
+    <path d={OUTLINE} class="outline" />
+    {
+      cities.map((c) => (
+        <a
+          href={`/${c.slug}/`}
+          data-slug={c.slug}
+          data-city={c.name}
+          data-facility={c.facility.name}
+          aria-label={`${c.name}: ${c.facility.name}`}
+        >
+          <circle cx={c.mapX} cy={c.mapY} r="7" />
+          <text x={c.mapX + (c.labelDx ?? 10)} y={c.mapY + (c.labelDy ?? 4)}>{c.name}</text>
+        </a>
+      ))
+    }
+  </svg>
+  <div id="tooltip" hidden>
+    <p class="t-name"></p>
+    <p class="t-fac"></p>
+    <p class="t-extra"></p>
+    <a class="t-link" href="/">Saznaj više</a>
+  </div>
+</div>
+
+<style>
+  #map-wrap {
+    position: relative;
+  }
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .outline {
+    fill: #dbe7f4;
+    stroke: #7c96b8;
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+  a[data-slug] circle {
+    fill: var(--accent);
+    stroke: #fff;
+    stroke-width: 2;
+  }
+  a[data-slug]:hover circle,
+  a[data-slug]:focus circle {
+    r: 9;
+  }
+  a[data-slug] text {
+    font-size: 14px;
+    font-weight: 600;
+    fill: var(--ink);
+  }
+  #tooltip {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background: var(--card);
+    border: 1px solid #c8d4e4;
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    box-shadow: 0 4px 14px rgb(22 35 58 / 0.15);
+    min-width: 14rem;
+    max-width: 20rem;
+  }
+  #tooltip p {
+    margin: 0 0 0.25rem;
+  }
+  .t-name {
+    font-weight: 700;
+  }
+  .t-fac {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .t-extra {
+    font-variant-numeric: tabular-nums;
+  }
+  .t-extra:empty {
+    display: none;
+  }
+</style>
+
+<script>
+  import { elapsedSeconds } from "../lib/elapsed";
+
+  const wrap = document.getElementById("map-wrap")!;
+  const tooltip = document.getElementById("tooltip")!;
+  const nameEl = tooltip.querySelector(".t-name")!;
+  const facEl = tooltip.querySelector(".t-fac")!;
+  const extraEl = tooltip.querySelector(".t-extra")!;
+  const linkEl = tooltip.querySelector<HTMLAnchorElement>(".t-link")!;
+
+  let ticker: ReturnType<typeof setInterval> | undefined;
+  let hideDelay: ReturnType<typeof setTimeout> | undefined;
+  let openSlug = "";
+
+  function show(marker: HTMLElement) {
+    clearTimeout(hideDelay);
+    clearInterval(ticker);
+    const slug = marker.dataset.slug ?? "";
+    nameEl.textContent = marker.dataset.city ?? "";
+    facEl.textContent = marker.dataset.facility ?? "";
+    linkEl.href = `/${slug}/`;
+    extraEl.textContent = "";
+    if (slug === "split") {
+      const tick = () => {
+        extraEl.textContent = String(elapsedSeconds(Date.now()));
+      };
+      tick();
+      ticker = setInterval(tick, 1000);
+    }
+    const m = marker.getBoundingClientRect();
+    const w = wrap.getBoundingClientRect();
+    tooltip.style.left = `${m.left - w.left + m.width / 2}px`;
+    tooltip.style.top = `${m.top - w.top - 10}px`;
+    tooltip.hidden = false;
+    openSlug = slug;
+  }
+
+  function scheduleHide() {
+    hideDelay = setTimeout(() => {
+      tooltip.hidden = true;
+      clearInterval(ticker);
+      openSlug = "";
+    }, 150);
+  }
+
+  for (const marker of wrap.querySelectorAll<HTMLElement>("a[data-slug]")) {
+    marker.addEventListener("mouseenter", () => show(marker));
+    marker.addEventListener("mouseleave", scheduleHide);
+    marker.addEventListener("focus", () => show(marker));
+    marker.addEventListener("blur", scheduleHide);
+    marker.addEventListener("click", (event) => {
+      const touchOnly = matchMedia("(hover: none)").matches;
+      if (touchOnly && openSlug !== marker.dataset.slug) {
+        event.preventDefault();
+        show(marker);
+      }
+    });
+  }
+
+  tooltip.addEventListener("mouseenter", () => clearTimeout(hideDelay));
+  tooltip.addEventListener("mouseleave", scheduleHide);
+</script>
