@@ -1,12 +1,49 @@
 ---
+import Base from "../layouts/Base.astro";
+import Map from "../components/Map.astro";
+import { cities } from "../data/cities";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "SHNL",
+  url: "https://shnl.hr/",
+};
 ---
 
-<html lang="hr">
-  <head>
-    <meta charset="utf-8" />
-    <title>SHNL</title>
-  </head>
-  <body>
-    <h1>SHNL</h1>
-  </body>
-</html>
+<Base
+  title="SHNL: pomoć kod ovisnosti o kockanju u gradovima SuperSport HNL-a"
+  description="Provjerene informacije o liječenju ovisnosti o kockanju u gradovima klubova SuperSport HNL-a: Zagreb, Split, Rijeka, Osijek, Pula, Varaždin, Koprivnica i Velika Gorica."
+  path="/"
+  jsonLd={jsonLd}
+>
+  <h1>SHNL: pomoć kod ovisnosti o kockanju u gradovima SuperSport HNL-a</h1>
+  <p>
+    SuperSport HNL najviši je rang hrvatskog klupskog nogometa. Uz nogomet je u
+    Hrvatskoj sve prisutnije i sportsko klađenje, a s njim i ovisnost o
+    kockanju. Ova stranica na jednom mjestu okuplja provjerene informacije o
+    tome gdje u gradovima klubova SHNL-a potražiti stručnu pomoć.
+  </p>
+  <p>
+    Ovisnost o kockanju bolest je koja se liječi. U svakom gradu lige djeluje
+    javna zdravstvena ustanova u kojoj se možete besplatno posavjetovati i
+    započeti liječenje, u većini slučajeva i bez uputnice.
+  </p>
+  <p>
+    Pređite pokazivačem preko grada na karti ili odaberite grad s popisa za
+    adresu, telefon i način naručivanja.
+  </p>
+
+  <Map />
+
+  <h2>Gradovi SuperSport HNL-a</h2>
+  <ul>
+    {
+      cities.map((c) => (
+        <li>
+          <a href={`/${c.slug}/`}>Liječenje ovisnosti o kockanju u {c.nameLoc}</a> ({c.clubs.join(", ")})
+        </li>
+      ))
+    }
+  </ul>
+</Base>
