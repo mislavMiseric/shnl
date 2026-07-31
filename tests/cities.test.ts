@@ -35,6 +35,6 @@ describe("cities data", () => {
   });
 
   it("contains no em dash anywhere in the data", () => {
-    expect(JSON.stringify(cities)).not.toContain("—");
+    expect(JSON.stringify(cities)).not.toContain("\u2014");
   });
 });
