@@ -135,12 +135,15 @@ const OUTLINE =
     openSlug = slug;
   }
 
+  function hideNow() {
+    clearTimeout(hideDelay);
+    tooltip.hidden = true;
+    clearInterval(ticker);
+    openSlug = "";
+  }
+
   function scheduleHide() {
-    hideDelay = setTimeout(() => {
-      tooltip.hidden = true;
-      clearInterval(ticker);
-      openSlug = "";
-    }, 150);
+    hideDelay = setTimeout(hideNow, 150);
   }
 
   for (const marker of wrap.querySelectorAll<HTMLElement>("a[data-slug]")) {
@@ -159,4 +162,19 @@ const OUTLINE =
 
   tooltip.addEventListener("mouseenter", () => clearTimeout(hideDelay));
   tooltip.addEventListener("mouseleave", scheduleHide);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      hideNow();
+    }
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    if (
+      !(event.target instanceof Element) ||
+      (!event.target.closest("a[data-slug]") && !event.target.closest("#tooltip"))
+    ) {
+      hideNow();
+    }
+  });
 </script>
