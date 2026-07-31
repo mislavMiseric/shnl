@@ -1,0 +1,23 @@
+---
+import Base from "../layouts/Base.astro";
+import { cities } from "../data/cities";
+---
+
+<Base
+  title="Stranica nije pronađena | SHNL"
+  description="Tražena stranica ne postoji. Odaberite grad s popisa gradova SuperSport HNL-a."
+  path="/404"
+>
+  <h1>Stranica nije pronađena</h1>
+  <p>Tražena stranica ne postoji. Možda tražite jedan od gradova:</p>
+  <ul>
+    {
+      cities.map((c) => (
+        <li>
+          <a href={`/${c.slug}/`}>{c.name}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <p><a href="/">Natrag na naslovnicu</a></p>
+</Base>
