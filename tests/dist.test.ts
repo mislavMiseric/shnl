@@ -56,6 +56,15 @@ describe.skipIf(!existsSync(DIST))("built site", () => {
     }
   });
 
+  it("links the favicon from every page", () => {
+    for (const file of htmlFiles(DIST)) {
+      const html = readFileSync(file, "utf8");
+      expect(html, file).toContain('href="/favicon.svg"');
+      expect(html, file).toContain('href="/favicon.ico"');
+      expect(html, file).toContain('rel="apple-touch-icon"');
+    }
+  });
+
   it("contains no em dash in any generated page", () => {
     for (const file of htmlFiles(DIST)) {
       expect(readFileSync(file, "utf8"), file).not.toContain("\u2014");
