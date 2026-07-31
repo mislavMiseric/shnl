@@ -1,4 +1,6 @@
 ---
+import Analytics from "@vercel/analytics/astro";
+
 interface Props {
   title: string;
   description: string;
@@ -37,7 +39,9 @@ const canonical = new URL(path, "https://shnl.hr").href;
     </main>
     <footer>
       <p>SHNL: informacije o pomoći kod ovisnosti o kockanju u gradovima SuperSport HNL-a.</p>
+      <p>Stranica ne koristi kolačiće. Posjećenost se mjeri anonimno, bez praćenja posjetitelja.</p>
     </footer>
+    <Analytics />
   </body>
 </html>
 
