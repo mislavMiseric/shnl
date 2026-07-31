@@ -41,6 +41,15 @@ describe.skipIf(!existsSync(DIST))("built site", () => {
     }
   });
 
+  it("links the self-exclusion register on the homepage and every city page", () => {
+    const home = readFileSync(join(DIST, "index.html"), "utf8");
+    expect(home).toContain('href="https://hana.hzjz.hr"');
+    for (const c of cities) {
+      const html = readFileSync(join(DIST, c.slug, "index.html"), "utf8");
+      expect(html, c.slug).toContain('href="https://hana.hzjz.hr"');
+    }
+  });
+
   it("contains no em dash in any generated page", () => {
     for (const file of htmlFiles(DIST)) {
       expect(readFileSync(file, "utf8"), file).not.toContain("\u2014");

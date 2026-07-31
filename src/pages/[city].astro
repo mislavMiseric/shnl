@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Exclusion from "../components/Exclusion.astro";
 import { cities } from "../data/cities";
 import type { City } from "../data/cities";
 
@@ -73,6 +74,8 @@ const jsonLd = {
       </li>
     </ul>
   </section>
+
+  <Exclusion />
 
   <h2>Pomoć u drugim gradovima</h2>
   <ul>

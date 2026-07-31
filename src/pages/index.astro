@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Map from "../components/Map.astro";
+import Exclusion from "../components/Exclusion.astro";
 import { cities } from "../data/cities";
 
 const jsonLd = {
@@ -29,6 +30,9 @@ const jsonLd = {
     javna zdravstvena ustanova u kojoj se možete besplatno posavjetovati i
     započeti liječenje, u većini slučajeva i bez uputnice.
   </p>
+
+  <Exclusion />
+
   <p>
     Pređite pokazivačem preko grada na karti ili odaberite grad s popisa za
     adresu, telefon i način naručivanja.
