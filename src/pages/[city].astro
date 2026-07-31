@@ -1,0 +1,87 @@
+---
+import Base from "../layouts/Base.astro";
+import { cities } from "../data/cities";
+import type { City } from "../data/cities";
+
+export function getStaticPaths() {
+  return cities.map((city) => ({ params: { city: city.slug }, props: { city } }));
+}
+
+interface Props {
+  city: City;
+}
+
+const { city } = Astro.props;
+
+const index = cities.findIndex((c) => c.slug === city.slug);
+const others = [1, 2, 3].map((step) => cities[(index + step) % cities.length]!);
+
+const clubsSentence =
+  city.clubs.length > 1
+    ? `U SuperSport HNL-u grad ${city.name} predstavljaju ${city.clubs.join(", ")}.`
+    : `U SuperSport HNL-u grad ${city.name} predstavlja ${city.clubs[0]}.`;
+
+const phoneHref = `tel:+385${city.facility.phone.replaceAll(" ", "").slice(1)}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MedicalClinic",
+  name: city.facility.name,
+  url: city.facility.url,
+  telephone: city.facility.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: city.facility.address.split(",")[0],
+    addressLocality: city.name,
+    addressCountry: "HR",
+  },
+};
+---
+
+<Base
+  title={`Liječenje ovisnosti o kockanju u ${city.nameLoc} | SHNL`}
+  description={`Gdje potražiti pomoć kod ovisnosti o kockanju u ${city.nameLoc}: ${city.facility.name}, adresa, telefon i način naručivanja.`}
+  path={`/${city.slug}/`}
+  jsonLd={jsonLd}
+>
+  <h1>Liječenje ovisnosti o kockanju u {city.nameLoc}</h1>
+  <p>{clubsSentence}</p>
+  <p>
+    Ako kockanje ili klađenje stvara probleme vama ili nekome bliskom, pomoć
+    postoji i dostupna je. U nastavku su podaci ustanove u kojoj možete
+    potražiti stručnu podršku.
+  </p>
+
+  <section>
+    <h2>{city.facility.name}</h2>
+    <p>{city.facility.description}</p>
+    <ul>
+      <li>Adresa: {city.facility.address}</li>
+      <li>
+        Telefon: <a href={phoneHref}>{city.facility.phone}</a>
+      </li>
+      {
+        city.facility.email && (
+          <li>
+            Email: <a href={`mailto:${city.facility.email}`}>{city.facility.email}</a>
+          </li>
+        )
+      }
+      <li>
+        <a href={city.facility.url} rel="noopener">Službena stranica ustanove</a>
+      </li>
+    </ul>
+  </section>
+
+  <h2>Pomoć u drugim gradovima</h2>
+  <ul>
+    {
+      others.map((o) => (
+        <li>
+          <a href={`/${o.slug}/`}>Liječenje ovisnosti o kockanju u {o.nameLoc}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <p><a href="/">Natrag na kartu svih gradova</a></p>
+</Base>
