@@ -50,6 +50,12 @@ describe.skipIf(!existsSync(DIST))("built site", () => {
     }
   });
 
+  it("ships favicon files", () => {
+    for (const f of ["favicon.svg", "favicon.ico", "apple-touch-icon.png"]) {
+      expect(existsSync(join(DIST, f)), f).toBe(true);
+    }
+  });
+
   it("contains no em dash in any generated page", () => {
     for (const file of htmlFiles(DIST)) {
       expect(readFileSync(file, "utf8"), file).not.toContain("\u2014");

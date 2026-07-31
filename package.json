@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "test": "vitest run",
     "verify": "astro build && vitest run",
-    "og": "node scripts/make-og.mjs"
+    "og": "node scripts/make-og.mjs",
+    "favicon": "node scripts/make-favicon.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.0",
