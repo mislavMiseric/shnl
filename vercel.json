@@ -1,11 +1,11 @@
 {
   "redirects": [
-    { "source": "/dinamo", "destination": "/zagreb/", "permanent": true },
-    { "source": "/lokomotiva", "destination": "/zagreb/", "permanent": true },
-    { "source": "/rudes", "destination": "/zagreb/", "permanent": true },
-    { "source": "/hajduk", "destination": "/split/", "permanent": true },
-    { "source": "/istra", "destination": "/pula/", "permanent": true },
-    { "source": "/slaven-belupo", "destination": "/koprivnica/", "permanent": true },
-    { "source": "/gorica", "destination": "/velika-gorica/", "permanent": true }
+    { "source": "/dinamo{/}?", "destination": "/zagreb/", "permanent": true },
+    { "source": "/lokomotiva{/}?", "destination": "/zagreb/", "permanent": true },
+    { "source": "/rudes{/}?", "destination": "/zagreb/", "permanent": true },
+    { "source": "/hajduk{/}?", "destination": "/split/", "permanent": true },
+    { "source": "/istra{/}?", "destination": "/pula/", "permanent": true },
+    { "source": "/slaven-belupo{/}?", "destination": "/koprivnica/", "permanent": true },
+    { "source": "/gorica{/}?", "destination": "/velika-gorica/", "permanent": true }
   ]
 }
