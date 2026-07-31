@@ -21,14 +21,15 @@ const clubsSentence =
     ? `U SuperSport HNL-u grad ${city.name} predstavljaju ${city.clubs.join(", ")}.`
     : `U SuperSport HNL-u grad ${city.name} predstavlja ${city.clubs[0]}.`;
 
-const phoneHref = `tel:+385${city.facility.phone.replaceAll(" ", "").slice(1)}`;
+const phoneE164 = `+385${city.facility.phone.replaceAll(" ", "").slice(1)}`;
+const phoneHref = `tel:${phoneE164}`;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "MedicalClinic",
   name: city.facility.name,
   url: city.facility.url,
-  telephone: city.facility.phone,
+  telephone: phoneE164,
   address: {
     "@type": "PostalAddress",
     streetAddress: city.facility.address.split(",")[0],
