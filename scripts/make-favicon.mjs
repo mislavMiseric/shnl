@@ -25,8 +25,8 @@ console.log("public/favicon.ico written");
 
 // full-bleed square, no rounded corners: iOS applies its own mask
 const touchSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180">
-  <rect width="180" height="180" fill="#0b5cad"/>
-  <text x="90" y="122" text-anchor="middle" font-family="Arial, sans-serif" font-size="92" font-weight="700" fill="#ffffff">S</text>
+  <rect width="180" height="180" fill="#0a6076"/>
+  <text x="90" y="126" text-anchor="middle" font-family="Georgia, serif" font-size="98" font-weight="700" fill="#fdfcf8">S</text>
 </svg>`;
 await sharp(Buffer.from(touchSvg)).png().toFile("public/apple-touch-icon.png");
 console.log("public/apple-touch-icon.png written");

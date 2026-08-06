@@ -50,49 +50,99 @@ const canonical = new URL(path, "https://shnl.hr").href;
 
 <style is:global>
   :root {
-    --ink: #16233a;
-    --muted: #55637d;
-    --accent: #0b5cad;
-    --bg: #f6f8fb;
+    --ink: #1c2b33;
+    --muted: #55666e;
+    --accent: #0a6076;
+    --accent-deep: #084c5e;
+    --stop: #af2b3d;
+    --stop-deep: #93202f;
+    --bg: #f3f7f7;
     --card: #ffffff;
+    --shore: #d9e8ed;
+    --stone: #fdfcf8;
+    --line: #dde5e7;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
   }
   * {
     box-sizing: border-box;
   }
   body {
     margin: 0;
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--sans);
     color: var(--ink);
     background: var(--bg);
-    line-height: 1.6;
+    line-height: 1.65;
   }
   header,
   main,
   footer {
     max-width: 56rem;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 1.25rem;
   }
   header {
-    padding-top: 1.25rem;
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
   }
   .brand {
-    font-weight: 800;
+    font-family: var(--serif);
+    font-weight: 700;
     font-size: 1.5rem;
-    letter-spacing: 0.05em;
-    color: var(--accent);
+    letter-spacing: 0.14em;
+    color: var(--ink);
     text-decoration: none;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 0.1rem;
+  }
+  h1,
+  h2 {
+    font-family: var(--serif);
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    color: var(--ink);
   }
   h1 {
-    line-height: 1.25;
+    font-size: clamp(1.8rem, 1.2rem + 2.4vw, 2.6rem);
+    line-height: 1.15;
+    max-width: 30ch;
+    margin: 2rem 0 1rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+    line-height: 1.3;
+    margin: 2.5rem 0 0.75rem;
+  }
+  p,
+  main ul {
+    max-width: 46rem;
   }
   a {
     color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  a:hover {
+    color: var(--accent-deep);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
   footer {
-    margin-top: 3rem;
+    margin-top: 4rem;
+    padding-top: 1.25rem;
     padding-bottom: 2rem;
     color: var(--muted);
     font-size: 0.875rem;
+    border-top: 1px solid var(--line);
   }
 </style>

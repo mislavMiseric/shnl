@@ -22,13 +22,18 @@
 <style>
   .exclusion {
     background: var(--card);
-    border: 2px solid var(--accent);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--stop);
     border-radius: 10px;
-    padding: 1rem 1.25rem;
-    margin: 1.5rem 0;
+    padding: 1.1rem 1.4rem;
+    margin: 2rem 0;
   }
   .exclusion h2 {
     margin-top: 0;
+    font-size: 1.25rem;
+  }
+  .exclusion p {
+    font-size: 0.95rem;
   }
   .exclusion-actions {
     display: flex;
@@ -39,11 +44,19 @@
   }
   .exclusion-cta {
     display: inline-block;
-    background: var(--accent);
+    background: var(--stop);
     color: #ffffff;
     font-weight: 700;
-    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    padding: 0.55rem 1.15rem;
     border-radius: 8px;
     text-decoration: none;
+  }
+  .exclusion-cta:hover {
+    background: var(--stop-deep);
+    color: #ffffff;
+  }
+  .exclusion-cta:focus-visible {
+    outline-color: var(--stop);
   }
 </style>

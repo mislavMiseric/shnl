@@ -19,7 +19,7 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <h1>SHNL: pomoć kod ovisnosti o kockanju u gradovima SuperSport HNL-a</h1>
-  <p>
+  <p class="lead">
     SuperSport HNL najviši je rang hrvatskog klupskog nogometa. Uz nogomet je u
     Hrvatskoj sve prisutnije i sportsko klađenje, a s njim i ovisnost o
     kockanju. Ova stranica na jednom mjestu okuplja provjerene informacije o
@@ -33,7 +33,7 @@ const jsonLd = {
 
   <Exclusion />
 
-  <p>
+  <p class="map-hint">
     Pređite pokazivačem preko grada na karti ili odaberite grad s popisa za
     adresu, telefon i način naručivanja.
   </p>
@@ -41,13 +41,75 @@ const jsonLd = {
   <Map />
 
   <h2>Gradovi SuperSport HNL-a</h2>
-  <ul>
+  <ul class="city-grid">
     {
       cities.map((c) => (
         <li>
-          <a href={`/${c.slug}/`}>Liječenje ovisnosti o kockanju u {c.nameLoc}</a> ({c.clubs.join(", ")})
+          <a href={`/${c.slug}/`}>
+            <span class="city-name">{c.name}</span>
+            <span class="city-action">Liječenje ovisnosti o kockanju u {c.nameLoc}</span>
+          </a>
+          <p class="city-clubs">{c.clubs.join(", ")}</p>
         </li>
       ))
     }
   </ul>
 </Base>
+
+<style>
+  .lead {
+    font-size: 1.125rem;
+  }
+  .map-hint {
+    margin-bottom: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .city-grid {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.9rem;
+    max-width: none;
+  }
+  .city-grid li {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1rem 1.1rem 0.9rem;
+  }
+  .city-grid a {
+    display: block;
+    text-decoration: none;
+  }
+  .city-name {
+    display: block;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .city-action {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    line-height: 1.4;
+  }
+  .city-grid a:hover .city-name {
+    color: var(--accent-deep);
+  }
+  .city-clubs {
+    margin: 0.55rem 0 0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>

@@ -9,13 +9,15 @@ const outline =
   "L 248 22 L 208 56 L 196 95 L 172 118 L 168 140 L 128 123 L 108 118 L 64 132 Z";
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
-  <rect width="1200" height="630" fill="#0b1f3a" />
-  <g transform="translate(640, 45) scale(1.1)">
-    <path d="${outline}" fill="#1d3a63" stroke="#3c5c8c" stroke-width="3" stroke-linejoin="round" />
+  <rect width="1200" height="630" fill="#f3f7f7" />
+  <rect x="620" y="45" width="540" height="540" rx="24" fill="#d9e8ed" stroke="#c6dae1" stroke-width="2" />
+  <g transform="translate(645, 65) scale(0.98)">
+    <path d="${outline}" fill="#fdfcf8" stroke="#35586a" stroke-width="3" stroke-linejoin="round" />
   </g>
-  <text x="80" y="330" font-family="sans-serif" font-size="190" font-weight="700" fill="#ffffff">SHNL</text>
-  <text x="84" y="430" font-family="sans-serif" font-size="34" fill="#bcd0e8">Pomoć kod ovisnosti o kockanju</text>
-  <text x="84" y="480" font-family="sans-serif" font-size="34" fill="#bcd0e8">u gradovima SuperSport HNL-a</text>
+  <text x="80" y="310" font-family="Georgia, serif" font-size="170" font-weight="700" fill="#1c2b33" letter-spacing="8">SHNL</text>
+  <rect x="86" y="345" width="180" height="10" fill="#0a6076" />
+  <text x="84" y="440" font-family="sans-serif" font-size="34" fill="#55666e">Pomoć kod ovisnosti o kockanju</text>
+  <text x="84" y="490" font-family="sans-serif" font-size="34" fill="#55666e">u gradovima SuperSport HNL-a</text>
 </svg>`;
 
 await sharp(Buffer.from(svg)).png().toFile("public/og.png");

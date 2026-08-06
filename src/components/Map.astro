@@ -43,6 +43,10 @@ const OUTLINE =
 <style>
   #map-wrap {
     position: relative;
+    background: linear-gradient(165deg, #e3eef2, var(--shore));
+    border: 1px solid #c6dae1;
+    border-radius: 14px;
+    padding: clamp(0.75rem, 3vw, 1.5rem);
   }
   svg {
     width: 100%;
@@ -50,33 +54,44 @@ const OUTLINE =
     display: block;
   }
   .outline {
-    fill: #dbe7f4;
-    stroke: #7c96b8;
-    stroke-width: 2;
+    fill: var(--stone);
+    stroke: #35586a;
+    stroke-width: 1.75;
     stroke-linejoin: round;
   }
   a[data-slug] circle {
-    fill: var(--accent);
-    stroke: #fff;
-    stroke-width: 2;
+    fill: var(--card);
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    transition: fill 0.15s, r 0.15s;
   }
   a[data-slug]:hover circle,
   a[data-slug]:focus circle {
+    fill: var(--accent);
     r: 9;
   }
   a[data-slug] text {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
-    fill: var(--ink);
+    fill: #23404d;
+    paint-order: stroke;
+    stroke: rgb(253 252 248 / 0.85);
+    stroke-width: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a[data-slug] circle {
+      transition: none;
+    }
   }
   #tooltip {
     position: absolute;
     transform: translate(-50%, -100%);
     background: var(--card);
-    border: 1px solid #c8d4e4;
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--accent);
     border-radius: 8px;
-    padding: 0.6rem 0.8rem;
-    box-shadow: 0 4px 14px rgb(22 35 58 / 0.15);
+    padding: 0.65rem 0.85rem;
+    box-shadow: 0 6px 18px rgb(28 43 51 / 0.18);
     min-width: 14rem;
     max-width: 20rem;
   }
@@ -84,14 +99,18 @@ const OUTLINE =
     margin: 0 0 0.25rem;
   }
   .t-name {
+    font-family: var(--serif);
     font-weight: 700;
+    font-size: 1.05rem;
   }
   .t-fac {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     color: var(--muted);
   }
   .t-extra {
     font-variant-numeric: tabular-nums;
+    font-size: 0.85rem;
+    color: var(--muted);
   }
   .t-extra:empty {
     display: none;
